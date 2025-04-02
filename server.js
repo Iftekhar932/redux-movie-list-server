@@ -3,10 +3,16 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const port = 5000;
-
+const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
-// const cookieParser = require("cookie-parser");
+// connecting to mongodb
+connectDB()
+  .then(() => {
+    console.log("Connected to mongoDB");
+  })
+  .catch((err) => console.log(err));
+
 app.use(express.json()); // to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // to parse URL-encoded bodies
 
