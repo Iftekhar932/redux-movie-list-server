@@ -34,6 +34,15 @@ const signupController = async (req, res) => {
       return res.status(500).json({ message: "Token generation failed" });
     }
 
+    // set refresh-token in cookie
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "development",
+      sameSite: "strict",
+      maxAge: 60 * 1000, // 1 minute
+    });
+
+    console.log(refreshToken);
     // Send success response
     res.status(201).json({
       message: "User Registered successfully",
