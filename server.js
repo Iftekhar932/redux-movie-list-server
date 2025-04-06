@@ -17,7 +17,6 @@ connectDB()
 app.use(cookieParser()); // to parse cookies
 app.use(express.json()); // to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // to parse URL-encoded bodies
-
 app.use(cors({ origin: "http://localhost:5173", credentials: true })); // allow cross-origin requests from the frontend
 
 app.use("/auth", authRoutes);

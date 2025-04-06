@@ -1,0 +1,31 @@
+📂 backend
+ ├── 📂 config              # Configuration files (DB connection, etc.)
+ │   ├── db.js              # MongoDB connection
+ │   ├── env.js             # (Optional) Environment variables setup
+ │
+ ├── 📂 models              # Mongoose models (schema)
+ │   ├── User.js            # User schema
+ │   ├── Product.js         # Product schema
+ │
+ ├── 📂 controllers         # Controllers for handling requests
+ │   ├── authController.js  # Login, Register, Token management
+ │   ├── userController.js  # Get, Update, Delete users
+ │
+ ├── 📂 services            # Business logic (for better separation)
+ │   ├── authService.js     # Handles JWT, bcrypt, etc.
+ │   ├── userService.js     # Handles user-related logic
+ │
+ ├── 📂 routes              # API routes
+ │   ├── authRoutes.js      # Routes for authentication
+ │   ├── userRoutes.js      # Routes for user operations
+ │
+ ├── 📂 middleware          # Middleware (Auth, Error Handling)
+ │   ├── authMiddleware.js  # Protect routes (JWT verification)
+ │   ├── errorHandler.js    # Global error handling
+ │
+ ├── 📂 utils               # Utility functions/helpers
+ │   ├── generateToken.js   # Generate JWT tokens
+ │   ├── sendEmail.js       # (Optional) Email utility
+ │
+ ├── server.js              # Main entry point
+ ├── package.json           

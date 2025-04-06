@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const generateToken = (userId) => {
-  console.log(process.env.ACCESS_SECRET, process.env.REFRESH_SECRET);
   try {
     const accessToken = jwt.sign({ userId }, process.env.ACCESS_SECRET, {
       expiresIn: "10000", // 10 seconds just to test the refresh token and access token expiry

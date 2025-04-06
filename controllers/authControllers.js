@@ -42,7 +42,6 @@ const signupController = async (req, res) => {
       maxAge: 60 * 1000, // 1 minute
     });
 
-    console.log(refreshToken);
     // Send success response
     res.status(201).json({
       message: "User Registered successfully",
