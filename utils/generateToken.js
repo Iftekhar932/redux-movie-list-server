@@ -6,7 +6,7 @@ const generateToken = (userId) => {
       expiresIn: "5000", // 5 seconds just to test the refresh token and access token expiry
     });
     const refreshToken = jwt.sign({ userId }, process.env.REFRESH_SECRET, {
-      expiresIn: "30000", // 30 seconds just to test the refresh token and access token expiry
+      expiresIn: "60000", // 60 seconds just to test the refresh token and access token expiry
     });
     return { accessToken, refreshToken };
   } catch (error) {

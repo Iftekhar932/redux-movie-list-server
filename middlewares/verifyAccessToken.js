@@ -11,7 +11,7 @@ const verifyAccessToken = (req, res, next) => {
         return res.status(401).json({ message: "Unauthorized" });
       }
       req.user = decoded; // Attach userId to the request object
-      console.log(req.user);
+      console.log(req.user, "req.user line 12 💚");
       next();
     });
   } catch (error) {
