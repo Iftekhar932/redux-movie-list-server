@@ -5,7 +5,9 @@ const cors = require("cors");
 const port = 5000;
 const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const hello = require("./routes/hello");
 const cookieParser = require("cookie-parser");
+const verifyAccessToken = require("./middlewares/verifyAccessToken");
 
 // connecting to mongodb
 connectDB()
@@ -20,6 +22,7 @@ app.use(express.urlencoded({ extended: true })); // to parse URL-encoded bodies
 app.use(cors({ origin: "http://localhost:5173", credentials: true })); // allow cross-origin requests from the frontend
 
 app.use("/auth", authRoutes);
+app.use("/products", verifyAccessToken, hello); // hello world route
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

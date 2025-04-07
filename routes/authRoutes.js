@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/signup", signupController);
 router.post("/login", loginController);
-router.post("/refreshJWT", refreshController);
+// router.post("/refreshJWT", refreshController);
 
 module.exports = router;
 

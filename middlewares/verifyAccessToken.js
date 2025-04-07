@@ -1,18 +1,19 @@
 const jwt = require("jsonwebtoken");
 
 const verifyAccessToken = (req, res, next) => {
-  const token = req.headers["Authorization"].split(" ")[1];
-  console.log("verifyAccessToken token line 5", token);
-  if (!token) return res.status(403).json({ message: "Unauthorized" });
+  const accessToken = req.headers["authorization"].split(" ")[1];
+  if (!accessToken) return res.status(403).json({ message: "Unauthorized" });
 
+  console.log(accessToken, "LINE 7");
   try {
-    jwt.verify(token, process.env.ACCESS_SECRET, (err, decoded) => {
+    jwt.verify(accessToken, process.env.ACCESS_SECRET, (err, decoded) => {
       if (err) {
-        console.log(err, "verifyAccessToken error 🟥 line 10");
+        console.log(err, "verifyAccessToken error 🟥 line 10 EXPIRED");
         return res.status(403).json({ message: "Unauthorized" });
       }
+      console.log(decoded, "verifyAccessToken decoded line 12");
+      next();
     });
-    next();
   } catch (error) {
     console.error(
       "✨ 🌟 verifyAccessToken error catch block line 16 🟥:",
