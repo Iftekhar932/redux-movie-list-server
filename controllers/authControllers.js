@@ -36,7 +36,7 @@ const signupController = async (req, res) => {
 
     // set refresh-token in cookie
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: false,
+      httpOnly: true,
       secure: process.env.NODE_ENV === "development",
       sameSite: "strict",
       maxAge: 60 * 1000, // 1 minute

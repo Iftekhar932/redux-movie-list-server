@@ -4,14 +4,14 @@ const verifyAccessToken = (req, res, next) => {
   const accessToken = req.headers["authorization"].split(" ")[1];
   if (!accessToken) return res.status(403).json({ message: "Unauthorized" });
 
-  console.log(accessToken, "LINE 7");
   try {
     jwt.verify(accessToken, process.env.ACCESS_SECRET, (err, decoded) => {
       if (err) {
         console.log(err, "verifyAccessToken error 🟥 line 10 EXPIRED");
-        return res.status(403).json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "Unauthorized" });
       }
-      console.log(decoded, "verifyAccessToken decoded line 12");
+      req.user = decoded; // Attach userId to the request object
+      console.log(req.user);
       next();
     });
   } catch (error) {

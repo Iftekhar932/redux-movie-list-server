@@ -1,18 +1,29 @@
 const jwt = require("jsonwebtoken");
 
 const verifyRefreshToken = (req, res, next) => {
-  const token = req.cookies.refreshToken;
-  console.log("verifyRefreshToken token line 5", token);
-  if (!token) {
-    console.log("No refresh token provided 🟥 line 6", token);
-    return res.status(403).json({ message: "Unauthorized" });
+  const refreshToken = req.cookies.refreshToken; // Assuming the refresh token is stored in cookies
+  console.log("verifyRefreshToken middleware called", refreshToken);
+  if (!refreshToken) {
+    return res
+      .status(401)
+      .json({ message: "Unauthorized: No refresh token provided" });
   }
   try {
+    jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, decoded) => {
+      if (err) {
+        console.log("here");
+        return res
+          .status(403)
+          .json({ message: "Forbidden: Invalid refresh token" });
+      }
+
+      req.user = decoded; // Attach the decoded token to the request object
+      console.log("Decoded refresh token:", decoded);
+
+      next();
+    });
   } catch (error) {
-    console.error(
-      "✨ 🌟 verifyRefreshToken error catch block line 8 🟥:",
-      error
-    );
+    console.error("Error in verifyRefreshToken middleware:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
