@@ -1,17 +1,22 @@
 const jwt = require("jsonwebtoken");
 
+/*
+//* This controller handles the refresh token logic. It verifies the refresh token and generates a new access token if accessToken expires.
+*/
 const refreshController = (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
-    console.log("No refresh token provided 🟥 line 6", refreshToken);
+    console.log(
+      "refreshController No refresh token provided 🟥 line 6",
+      refreshToken
+    );
     return res.status(401).json({ message: "Unauthorized" });
   }
-  console.log("verifyRefreshToken token line 5", refreshToken);
 
   try {
     jwt.verify(refreshToken, process.env.REFRESH_SECRET, (err, decoded) => {
       if (err) {
-        console.log(err, "verifyRefreshToken error 🟥 line 10 EXPIRED");
+        console.log(err, "refreshController error 🟥 line 14 EXPIRED");
         return res.status(403).json({ message: "Forbidden" });
       }
       const userId = decoded.userId;
@@ -22,7 +27,7 @@ const refreshController = (req, res) => {
     });
   } catch (error) {
     console.error(
-      "✨ 🌟 verifyRefreshToken error catch block line 8 🟥:",
+      "✨ 🌟 refreshController error catch block line 25 🟥:",
       error
     );
     res.status(500).json({ message: "Internal Server Error" });
