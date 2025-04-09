@@ -103,4 +103,19 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { signupController, loginController };
+const logoutController = async (req, res) => {
+  try {
+    // Clear the refresh token cookie
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "development",
+      sameSite: "strict",
+    });
+    return res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error(error, "Error in logoutController 🟥");
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { signupController, loginController, logoutController };

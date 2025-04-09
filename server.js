@@ -8,8 +8,6 @@ const authRoutes = require("./routes/authRoutes");
 const hello = require("./routes/hello");
 const cookieParser = require("cookie-parser");
 const verifyAccessToken = require("./middlewares/verifyAccessToken");
-const verifyRefreshToken = require("./middlewares/verifyRefreshToken");
-const refreshController = require("./controllers/refreshController");
 
 // connecting to mongodb
 connectDB()
